@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ItemStackMixin {
     @Inject(method = "use", at = @At("RETURN"), cancellable = true)
     public void onUse(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
-        if (user.getMainHandStack().isItemEqual(Items.RECOVERY_COMPASS.getDefaultStack()) && user.getOffHandStack().isItemEqual(Items.ENDER_PEARL.getDefaultStack())) {
+        if (user.getMainHandStack().isItemEqual(Items.RECOVERY_COMPASS.getDefaultStack()) && user.getOffHandStack().isItemEqual(Items.ENDER_PEARL.getDefaultStack()) && user.getLastDeathPos().isPresent()) {
             user.teleport(user.getLastDeathPos().get().getPos().getX(), user.getLastDeathPos().get().getPos().getY(), user.getLastDeathPos().get().getPos().getZ());
             if (!world.isClient) {
                 world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1f, 1f);
