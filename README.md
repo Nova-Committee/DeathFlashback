@@ -22,4 +22,4 @@ Death Flashback is open-sourced software licensed under the [MIT license][licens
 [fabric]: https://fabricmc.net/
 [license]: LICENSE
 [minecraft]: https://minecraft.net/
-[releases]: https://github.com/IntelligentCreations/Mudrock/releases
+[releases]: https://github.com/Nova-Committee/DeathFlashback/releases
