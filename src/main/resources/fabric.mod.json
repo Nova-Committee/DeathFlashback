@@ -8,10 +8,6 @@
   "authors": [
     "pkstDev"
   ],
-  "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
-  },
 
   "license": "MIT License",
   "icon": "assets/deathflashback/icon.png",
@@ -22,17 +18,12 @@
       "committee.nova.deathflashback.DeathFlashback"
     ]
   },
-  "mixins": [
-    "deathflashback.mixins.json"
-  ],
 
   "depends": {
     "fabricloader": ">=0.13.3",
     "fabric": "*",
     "minecraft": ">=1.19-alpha.22.17.a",
-    "java": ">=17"
-  },
-  "suggests": {
-    "another-mod": "*"
+    "java": ">=17",
+    "mudrock": "*"
   }
 }

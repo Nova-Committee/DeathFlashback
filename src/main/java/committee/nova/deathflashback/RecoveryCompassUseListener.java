@@ -1,5 +1,6 @@
-package committee.nova.deathflashback.mixin;
+package committee.nova.deathflashback;
 
+import dev.intelligentcreations.mudrock.event.listeners.ItemUseListener;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -8,15 +9,11 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(ItemStack.class)
-public class ItemStackMixin {
-    @Inject(method = "use", at = @At("RETURN"), cancellable = true)
-    public void onUse(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
+public class RecoveryCompassUseListener implements ItemUseListener {
+    @Override
+    public TypedActionResult<ItemStack> onItemUse(World world, PlayerEntity user, Hand hand) {
+        TypedActionResult<ItemStack> tar = TypedActionResult.pass(user.getMainHandStack());
         if (user.getMainHandStack().isItemEqual(Items.RECOVERY_COMPASS.getDefaultStack()) && user.getOffHandStack().isItemEqual(Items.ENDER_PEARL.getDefaultStack()) && user.getLastDeathPos().isPresent()) {
             user.teleport(user.getLastDeathPos().get().getPos().getX(), user.getLastDeathPos().get().getPos().getY(), user.getLastDeathPos().get().getPos().getZ());
             if (!world.isClient) {
@@ -25,7 +22,8 @@ public class ItemStackMixin {
             if (!user.isCreative()) {
                 user.getOffHandStack().decrement(1);
             }
-            cir.setReturnValue(TypedActionResult.success(user.getMainHandStack()));
+            tar = TypedActionResult.success(user.getMainHandStack());
         }
+        return tar;
     }
 }

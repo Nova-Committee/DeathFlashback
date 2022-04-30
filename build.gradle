@@ -12,6 +12,9 @@ version = project.mod_version + "-mc" + project.minecraft_version
 group = project.maven_group
 
 repositories {
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
@@ -22,6 +25,7 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    modImplementation "dev.intelligentcreations.mudrock:mudrock-mc1.18.2:0.1.1"
 }
 
 processResources {
@@ -65,9 +69,9 @@ modrinth {
     // Set the release version
     versionNumber = project.mod_version
     // Set the release notes
-    changelog = "For a list of changes, please refer to https://github.com/${project.github_repo}/releases/tag/v${project.version}"
+    changelog = "For a list of changes, please refer to https://github.com/${project.github_repo}/releases/tag/${project.mod_version}"
     // Add all supported mod loaders
-    loaders = ['fabric']
+    loaders = ['fabric', 'quilt']
     // Add all supported game versions
     project.mr_game_versions.split(', ').each { gameVersions.add it }
     // Add the main artifact
